@@ -1,0 +1,4 @@
+﻿<!--
+ServiceHost Language="C#" Debug="true" Service="sysnova.Services.CRUDService.Service1" CodeBehind="/ServiceImpl/Service1.svc.cs" Factory="Ninject.Extensions.Wcf.NinjectServiceHostFactory"%>
+ -->
+<%@ ServiceHost Language="C#" Debug="true" Service="sysnova.Services.CRUDService.Service1" CodeBehind="/ServiceImpl/Service1.svc.cs" Factory="sysnova.Infrastructure.DependencyResolution.OAuthHostFactory"%>
