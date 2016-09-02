@@ -13,6 +13,9 @@ using System.Security.Permissions;
 using System.Threading;
 using sysnova.Infrastructure.Errors;
 using sysnova.Infrastructure.Interfaces;
+using sysnova.Infrastructure.CommandBus.Dispatcher;
+using sysnova.Infrastructure.CommandBus.Command;
+using sysnova.Domain.Core.Common;
 
 namespace sysnova.Services.CRUDService
 {
@@ -28,9 +31,12 @@ namespace sysnova.Services.CRUDService
         private IRepository<Product> _prodRepo;
         // BY SERVICE
         private IProductService _serviceCloud;
+        //BY COMMANDBUS
+        private readonly ICommandBus _commandBus;
 
-        public Service1(IUnitOfWork uow, IRepository<Product> prodRepo, IRepository<Category> catRepo, IProductService serviceCloud)
+        public Service1(ICommandBus commandBus, IUnitOfWork uow, IRepository<Product> prodRepo, IRepository<Category> catRepo, IProductService serviceCloud)
         {
+            _commandBus = commandBus;
             _uow = uow;
             _prodRepo = prodRepo; 
             _catRepo = catRepo;
@@ -131,6 +137,17 @@ namespace sysnova.Services.CRUDService
         [PrincipalPermission(SecurityAction.Demand, Authenticated = true, Role = "Produce")]
         public string[] GetCategories(int value)
         {
+            //CommandBus
+            var command = new CreateOrUpdateCategoryCommand()
+            {
+                CategoryId = 123,
+                Name = "LEO",
+                Description = "LEO"
+            };
+            IEnumerable<ValidationResult> errors = _commandBus.Validate(command);
+            var resultBus = _commandBus.Submit(command);
+            //
+
             var principal = Thread.CurrentPrincipal;
             if (!(principal.IsInRole("Produce")))
                 throw new System.ServiceModel.Security.SecurityAccessDeniedException("Insuficient privileges - Procedure");

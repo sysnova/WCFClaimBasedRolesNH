@@ -104,6 +104,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\sysnova.Domain.Core\sysnova.Domain.Core.csproj">
+      <Project>{1aa086e9-8aac-476c-b92f-ddc349685309}</Project>
+      <Name>sysnova.Domain.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\sysnova.Domain.Entities\sysnova.Domain.Entities.csproj">
       <Project>{d82eea23-8801-47c8-b427-26031bcb004b}</Project>
       <Name>sysnova.Domain.Entities</Name>
@@ -111,6 +115,10 @@
     <ProjectReference Include="..\sysnova.Domain.Interfaces\sysnova.Domain.Interfaces.csproj">
       <Project>{7760ea0c-a146-41f4-9d50-b2512548486b}</Project>
       <Name>sysnova.Domain.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\sysnova.Infrastructure.CommandBus\sysnova.Infrastructure.CommandBus.csproj">
+      <Project>{9c457408-8709-4fb7-a884-d379187268f6}</Project>
+      <Name>sysnova.Infrastructure.CommandBus</Name>
     </ProjectReference>
     <ProjectReference Include="..\sysnova.Infrastructure.DependencyResolution\sysnova.Infrastructure.DependencyResolution.csproj">
       <Project>{7eb0df5c-b608-431b-9285-065e94611e3e}</Project>

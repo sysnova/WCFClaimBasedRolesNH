@@ -36,6 +36,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebClient", "WebClient\WebC
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sysnova.Domain.Forms", "sysnova.Domain.Forms\sysnova.Domain.Forms.csproj", "{3548B199-C644-4E53-83A5-76240F162000}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sysnova.Infrastructure.CommandBus", "sysnova.Infrastructure.CommandBus\sysnova.Infrastructure.CommandBus.csproj", "{9C457408-8709-4FB7-A884-D379187268F6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sysnova.Domain.Core", "sysnova.Domain.Core\sysnova.Domain.Core.csproj", "{1AA086E9-8AAC-476C-B92F-DDC349685309}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -90,6 +94,14 @@ Global
 		{3548B199-C644-4E53-83A5-76240F162000}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3548B199-C644-4E53-83A5-76240F162000}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3548B199-C644-4E53-83A5-76240F162000}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9C457408-8709-4FB7-A884-D379187268F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C457408-8709-4FB7-A884-D379187268F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C457408-8709-4FB7-A884-D379187268F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C457408-8709-4FB7-A884-D379187268F6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1AA086E9-8AAC-476C-B92F-DDC349685309}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1AA086E9-8AAC-476C-B92F-DDC349685309}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1AA086E9-8AAC-476C-B92F-DDC349685309}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1AA086E9-8AAC-476C-B92F-DDC349685309}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -105,5 +117,7 @@ Global
 		{9FF54053-416F-4C3D-A733-4DD7E3ECC0C4} = {D44B2089-DFA6-4A4B-8E6D-823722E8C90F}
 		{2FFB89BE-3712-43A6-B733-A9F4FFDE7417} = {D44B2089-DFA6-4A4B-8E6D-823722E8C90F}
 		{3548B199-C644-4E53-83A5-76240F162000} = {0D338628-FF53-44B6-83C5-68A317C0BACA}
+		{9C457408-8709-4FB7-A884-D379187268F6} = {D44B2089-DFA6-4A4B-8E6D-823722E8C90F}
+		{1AA086E9-8AAC-476C-B92F-DDC349685309} = {0D338628-FF53-44B6-83C5-68A317C0BACA}
 	EndGlobalSection
 EndGlobal

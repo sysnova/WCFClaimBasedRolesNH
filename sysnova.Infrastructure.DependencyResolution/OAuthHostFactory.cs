@@ -12,23 +12,29 @@ using sysnova.Infrastructure.Security;
 using System.IdentityModel.Policy;
 using System.ServiceModel.Description;
 using System.ServiceModel.Security;
+using Ninject.Web.Common;
 
 namespace sysnova.Infrastructure.DependencyResolution
 {
     public class OAuthHostFactory : NinjectServiceHostFactory
     {
-        private IKernel _kernel;
+        private IKernel _kernel;       
         public OAuthHostFactory()
         {
             _kernel = new StandardKernel();
             _kernel.Bind<ServiceHost>().To<NinjectServiceHost>();
+            //_kernel.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);
             RegisterServices(_kernel);
             SetKernel(_kernel);
         }
+        //public IKernel GetKernel { get { return _kernel; } }
+
         protected override ServiceHost CreateServiceHost(Type serviceType, Uri[] baseAddresses)
         {
             var host = base.CreateServiceHost(serviceType, baseAddresses);          
+            
             IProductService _className = (IProductService) _kernel.Get(typeof(IProductService));
+            
             //AUTHENTICATION
             host.Credentials.UserNameAuthentication.UserNamePasswordValidationMode = UserNamePasswordValidationMode.Custom;
             host.Credentials.UserNameAuthentication.CustomUserNamePasswordValidator = new CustomUserNameValidator(_className);

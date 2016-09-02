@@ -17,6 +17,10 @@ using sysnova.Infrastructure.Security;
 //
 using sysnova.Infrastructure.Services;
 using sysnova.Infrastructure.Interfaces;
+using sysnova.Infrastructure.CommandBus.Dispatcher;
+using sysnova.Infrastructure.CommandBus.Command;
+using sysnova.Infrastructure.CommandBus.ValidationHandler;
+using sysnova.Infrastructure.CommandBus.Handler;
 
 
 namespace sysnova.Infrastructure.DependencyResolution
@@ -36,9 +40,11 @@ namespace sysnova.Infrastructure.DependencyResolution
 
             Bind<IProductService>().To<ProductService>();
 
-            //NinjectServiceHost host = Kernel.Get<NinjectServiceHost>();
-            //host.Credentials.UserNameAuthentication.CustomUserNamePasswordValidator = Kernel.Get<CustomUserNameValidator>();
-            
+            Bind<ICommandBus>().To<DefaultCommandBus>();
+
+            Bind<ICommandHandler<CreateOrUpdateCategoryCommand>>().To<CreateOrUpdateCategoryHandler>();
+
+            Bind<IValidationHandler<CreateOrUpdateCategoryCommand>>().To<CreateOrUpdateCategoryValidationHandler>();
         }
     }
 }
