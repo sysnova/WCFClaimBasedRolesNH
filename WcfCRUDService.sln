@@ -40,6 +40,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sysnova.Infrastructure.Comm
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sysnova.Domain.Core", "sysnova.Domain.Core\sysnova.Domain.Core.csproj", "{1AA086E9-8AAC-476C-B92F-DDC349685309}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sysnova.Infrastructure.EventBus", "sysnova.Infrastructure.EventBus\sysnova.Infrastructure.EventBus.csproj", "{EC34F17B-22D2-4F34-8D7F-A3EC3D7D0389}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -102,6 +104,10 @@ Global
 		{1AA086E9-8AAC-476C-B92F-DDC349685309}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1AA086E9-8AAC-476C-B92F-DDC349685309}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1AA086E9-8AAC-476C-B92F-DDC349685309}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EC34F17B-22D2-4F34-8D7F-A3EC3D7D0389}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC34F17B-22D2-4F34-8D7F-A3EC3D7D0389}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC34F17B-22D2-4F34-8D7F-A3EC3D7D0389}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC34F17B-22D2-4F34-8D7F-A3EC3D7D0389}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -119,5 +125,6 @@ Global
 		{3548B199-C644-4E53-83A5-76240F162000} = {0D338628-FF53-44B6-83C5-68A317C0BACA}
 		{9C457408-8709-4FB7-A884-D379187268F6} = {D44B2089-DFA6-4A4B-8E6D-823722E8C90F}
 		{1AA086E9-8AAC-476C-B92F-DDC349685309} = {0D338628-FF53-44B6-83C5-68A317C0BACA}
+		{EC34F17B-22D2-4F34-8D7F-A3EC3D7D0389} = {D44B2089-DFA6-4A4B-8E6D-823722E8C90F}
 	EndGlobalSection
 EndGlobal

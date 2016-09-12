@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{92B4D57F-79B8-4BED-BB31-9DC995EDAAB2}</ProjectGuid>
+    <ProjectGuid>{EC34F17B-22D2-4F34-8D7F-A3EC3D7D0389}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>sysnova.Infrastructure.Interfaces</RootNamespace>
-    <AssemblyName>sysnova.Infrastructure.Interfaces</AssemblyName>
+    <RootNamespace>sysnova.Infrastructure.EventBus</RootNamespace>
+    <AssemblyName>sysnova.Infrastructure.EventBus</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -30,6 +30,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Ninject, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.3.2.0.0\lib\net45-full\Ninject.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Ninject.Web.Common, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.Web.Common.3.2.4-unstable-004\lib\net45-full\Ninject.Web.Common.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -39,27 +47,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ICommand.cs" />
-    <Compile Include="ICommandBus.cs" />
-    <Compile Include="ICommandHandler.cs" />
-    <Compile Include="ICommandResult.cs" />
-    <Compile Include="IDomainHandler.cs" />
-    <Compile Include="IEventDispatcher.cs" />
-    <Compile Include="IDomainEvent.cs" />
-    <Compile Include="IProductService.cs" />
-    <Compile Include="IValidationHandler.cs" />
+    <Compile Include="Dispatcher\DefaultEventBus.cs" />
+    <Compile Include="DomainEvent.cs" />
+    <Compile Include="Domain\Survey.cs" />
+    <Compile Include="Events\EndOfSurvey.cs" />
+    <Compile Include="Handlers\EndOfSurveyHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\sysnova.Domain.Core\sysnova.Domain.Core.csproj">
-      <Project>{1aa086e9-8aac-476c-b92f-ddc349685309}</Project>
-      <Name>sysnova.Domain.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\sysnova.Domain.Entities\sysnova.Domain.Entities.csproj">
-      <Project>{d82eea23-8801-47c8-b427-26031bcb004b}</Project>
-      <Name>sysnova.Domain.Entities</Name>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\sysnova.Infrastructure.Interfaces\sysnova.Infrastructure.Interfaces.csproj">
+      <Project>{92b4d57f-79b8-4bed-bb31-9dc995edaab2}</Project>
+      <Name>sysnova.Infrastructure.Interfaces</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -13,6 +13,8 @@ using System.IdentityModel.Policy;
 using System.ServiceModel.Description;
 using System.ServiceModel.Security;
 using Ninject.Web.Common;
+using sysnova.Infrastructure.EventBus;
+using sysnova.Infrastructure.EventBus.Dispatcher;
 
 namespace sysnova.Infrastructure.DependencyResolution
 {
@@ -58,6 +60,8 @@ namespace sysnova.Infrastructure.DependencyResolution
         }
         private static void RegisterServices(IKernel kernel)
         {
+            DomainEvent.Dispatcher = new DefaultEventBus(kernel);
+
             var modules = new List<WcfModule>
                 {
                     new RepositoryModule()

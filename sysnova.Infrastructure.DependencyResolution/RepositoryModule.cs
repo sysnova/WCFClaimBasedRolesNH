@@ -21,6 +21,10 @@ using sysnova.Infrastructure.CommandBus.Dispatcher;
 using sysnova.Infrastructure.CommandBus.Command;
 using sysnova.Infrastructure.CommandBus.ValidationHandler;
 using sysnova.Infrastructure.CommandBus.Handler;
+using sysnova.Infrastructure.EventBus.Events;
+using sysnova.Infrastructure.EventBus.Handlers;
+using sysnova.Infrastructure.EventBus.Dispatcher;
+//using sysnova.Infrastructure.EventBus;
 
 
 namespace sysnova.Infrastructure.DependencyResolution
@@ -40,11 +44,16 @@ namespace sysnova.Infrastructure.DependencyResolution
 
             Bind<IProductService>().To<ProductService>();
 
+            //COMMANDS
             Bind<ICommandBus>().To<DefaultCommandBus>();
 
             Bind<ICommandHandler<CreateOrUpdateCategoryCommand>>().To<CreateOrUpdateCategoryHandler>();
 
             Bind<IValidationHandler<CreateOrUpdateCategoryCommand>>().To<CreateOrUpdateCategoryValidationHandler>();
+
+            //EVENTS
+            //Bind<IEventDispatcher>().To<DefaultEventBus>();
+            Bind<IDomainHandler<EndOfSurvey>>().To<EndOfSurveyHandler>();
         }
     }
 }

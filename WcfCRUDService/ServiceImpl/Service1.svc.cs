@@ -16,6 +16,9 @@ using sysnova.Infrastructure.Interfaces;
 using sysnova.Infrastructure.CommandBus.Dispatcher;
 using sysnova.Infrastructure.CommandBus.Command;
 using sysnova.Domain.Core.Common;
+using sysnova.Infrastructure.EventBus.Domain;
+using sysnova.Infrastructure.EventBus.Events;
+using sysnova.Infrastructure.EventBus;
 
 namespace sysnova.Services.CRUDService
 {
@@ -146,8 +149,22 @@ namespace sysnova.Services.CRUDService
             };
             IEnumerable<ValidationResult> errors = _commandBus.Validate(command);
             var resultBus = _commandBus.Submit(command);
-            //
+            
+            //EventBus
+            var survey = new Survey();
+            survey.EndSurvey();
+            //Action Register
+            var survey1 = new Survey();
+            Survey endSurvey = null;
 
+            DomainEvent.Register<EndOfSurvey>(
+                s1 =>
+                {
+                    endSurvey = s1.Survey;
+                });
+
+            survey.EndSurvey();
+            //
             var principal = Thread.CurrentPrincipal;
             if (!(principal.IsInRole("Produce")))
                 throw new System.ServiceModel.Security.SecurityAccessDeniedException("Insuficient privileges - Procedure");

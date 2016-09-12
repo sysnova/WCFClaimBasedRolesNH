@@ -128,6 +128,10 @@
       <Project>{2ffb89be-3712-43a6-b733-a9f4ffde7417}</Project>
       <Name>sysnova.Infrastructure.Errors</Name>
     </ProjectReference>
+    <ProjectReference Include="..\sysnova.Infrastructure.EventBus\sysnova.Infrastructure.EventBus.csproj">
+      <Project>{ec34f17b-22d2-4f34-8d7f-a3ec3d7d0389}</Project>
+      <Name>sysnova.Infrastructure.EventBus</Name>
+    </ProjectReference>
     <ProjectReference Include="..\sysnova.Infrastructure.Interfaces\sysnova.Infrastructure.Interfaces.csproj">
       <Project>{92b4d57f-79b8-4bed-bb31-9dc995edaab2}</Project>
       <Name>sysnova.Infrastructure.Interfaces</Name>

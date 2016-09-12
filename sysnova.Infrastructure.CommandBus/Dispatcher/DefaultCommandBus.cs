@@ -73,8 +73,8 @@ namespace sysnova.Infrastructure.CommandBus.Dispatcher
             {
                 //using (var container = AutofacDependencyResolver.Current.ApplicationContainer.BeginLifetimeScope("httpRequest"))
                 //{
-                //    var service = container.Resolve<T>();
-                //    action(service);
+                    var service = _kernel.Get<T>();
+                    action(service);
                 //}
             });
         }
