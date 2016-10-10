@@ -35,7 +35,7 @@ namespace sysnova.Infrastructure.EventBus
                 foreach (var action in _actions)
                     if (action is Action<T>)
                     {
-                        ((Action<T>)action)(@event);
+                       ((Action<T>)action) (@event);
                     }
             }
 

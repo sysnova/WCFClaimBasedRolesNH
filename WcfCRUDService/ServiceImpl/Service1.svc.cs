@@ -19,6 +19,7 @@ using sysnova.Domain.Core.Common;
 using sysnova.Infrastructure.EventBus.Domain;
 using sysnova.Infrastructure.EventBus.Events;
 using sysnova.Infrastructure.EventBus;
+using System.Threading.Tasks;
 
 namespace sysnova.Services.CRUDService
 {
@@ -140,6 +141,7 @@ namespace sysnova.Services.CRUDService
         [PrincipalPermission(SecurityAction.Demand, Authenticated = true, Role = "Produce")]
         public string[] GetCategories(int value)
         {
+
             //CommandBus
             var command = new CreateOrUpdateCategoryCommand()
             {
@@ -153,18 +155,7 @@ namespace sysnova.Services.CRUDService
             //EventBus
             var survey = new Survey();
             survey.EndSurvey();
-            //Action Register
-            var survey1 = new Survey();
-            Survey endSurvey = null;
-
-            DomainEvent.Register<EndOfSurvey>(
-                s1 =>
-                {
-                    endSurvey = s1.Survey;
-                });
-
-            survey.EndSurvey();
-            //
+            
             var principal = Thread.CurrentPrincipal;
             if (!(principal.IsInRole("Produce")))
                 throw new System.ServiceModel.Security.SecurityAccessDeniedException("Insuficient privileges - Procedure");
