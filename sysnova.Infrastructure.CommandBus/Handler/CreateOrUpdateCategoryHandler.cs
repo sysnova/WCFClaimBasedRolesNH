@@ -10,8 +10,10 @@ namespace sysnova.Infrastructure.CommandBus.Handler
 {
     public class CreateOrUpdateCategoryHandler : ICommandHandler<CreateOrUpdateCategoryCommand>
     {
-        public CreateOrUpdateCategoryHandler() //IMappingEngine mapper, ICategoryRepository categoryRepository, IUnitOfWork unitOfWork)
+        private IDomainParentEvent _parent;
+        public CreateOrUpdateCategoryHandler(IDomainParentEvent Parent) //IMappingEngine mapper, ICategoryRepository categoryRepository, IUnitOfWork unitOfWork)
         {
+            this._parent = Parent;
             //this.mapper = mapper;
             //this.categoryRepository = categoryRepository;
             //this.unitOfWork = unitOfWork;
@@ -29,6 +31,9 @@ namespace sysnova.Infrastructure.CommandBus.Handler
             unitOfWork.Commit();
             return new CommandResult(true);
             */
+            
+            _parent.FireSomeEvent();
+
             return new CommandResult(true);
         }
     }

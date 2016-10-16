@@ -141,7 +141,6 @@ namespace sysnova.Services.CRUDService
         [PrincipalPermission(SecurityAction.Demand, Authenticated = true, Role = "Produce")]
         public string[] GetCategories(int value)
         {
-
             //CommandBus
             var command = new CreateOrUpdateCategoryCommand()
             {
@@ -154,8 +153,9 @@ namespace sysnova.Services.CRUDService
             
             //EventBus
             var survey = new Survey();
-            survey.EndSurvey();
-            
+            survey.EndSurvey(); // NOTIFY EVENT
+            //
+
             var principal = Thread.CurrentPrincipal;
             if (!(principal.IsInRole("Produce")))
                 throw new System.ServiceModel.Security.SecurityAccessDeniedException("Insuficient privileges - Procedure");

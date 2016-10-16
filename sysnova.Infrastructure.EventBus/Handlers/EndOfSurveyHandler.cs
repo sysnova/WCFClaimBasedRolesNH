@@ -27,18 +27,8 @@ namespace sysnova.Infrastructure.EventBus.Handlers
                     await Task.Delay(5000);
                     System.Diagnostics.Debug.WriteLine("<----- Raise Event Delay----" + callBackSurvey.Id + " - " + callBackSurvey.QualityChecker + "---->");
                 });
-            //            
+            //
 
-            /* EXAMPLE REGISTER ACTION
-             Survey endSurvey = null;
-              DomainEvent.Register<EndOfSurvey>(
-                s1 =>
-                {
-                    endSurvey = s1.Survey;
-                    System.Diagnostics.Debug.WriteLine("<---------- Raise Event Sin Delay----------->");
-
-                });
-            */
         }
             
     }

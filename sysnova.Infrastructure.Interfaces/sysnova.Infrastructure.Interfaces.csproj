@@ -46,6 +46,7 @@
     <Compile Include="IDomainHandler.cs" />
     <Compile Include="IEventDispatcher.cs" />
     <Compile Include="IDomainEvent.cs" />
+    <Compile Include="IDomainParentEvent.cs" />
     <Compile Include="IProductService.cs" />
     <Compile Include="IValidationHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

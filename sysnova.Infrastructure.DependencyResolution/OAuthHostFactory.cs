@@ -15,6 +15,7 @@ using System.ServiceModel.Security;
 using Ninject.Web.Common;
 using sysnova.Infrastructure.EventBus;
 using sysnova.Infrastructure.EventBus.Dispatcher;
+using sysnova.Infrastructure.EventBroker;
 
 namespace sysnova.Infrastructure.DependencyResolution
 {
@@ -64,7 +65,8 @@ namespace sysnova.Infrastructure.DependencyResolution
 
             var modules = new List<WcfModule>
                 {
-                    new RepositoryModule()
+                    new RepositoryModule(),
+                    new EventBrokerModule()
                 };
             kernel.Load(modules);
         } 
