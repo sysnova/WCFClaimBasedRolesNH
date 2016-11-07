@@ -61,6 +61,10 @@
       <Project>{1aa086e9-8aac-476c-b92f-ddc349685309}</Project>
       <Name>sysnova.Domain.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\sysnova.Domain.Entities\sysnova.Domain.Entities.csproj">
+      <Project>{d82eea23-8801-47c8-b427-26031bcb004b}</Project>
+      <Name>sysnova.Domain.Entities</Name>
+    </ProjectReference>
     <ProjectReference Include="..\sysnova.Infrastructure.Interfaces\sysnova.Infrastructure.Interfaces.csproj">
       <Project>{92b4d57f-79b8-4bed-bb31-9dc995edaab2}</Project>
       <Name>sysnova.Infrastructure.Interfaces</Name>

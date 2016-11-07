@@ -5,6 +5,7 @@ using Ninject.Modules;
 using Ninject.Extensions.Wcf;
 using sysnova.Infrastructure.EventBroker.Domain;
 using sysnova.Infrastructure.Interfaces;
+using sysnova.Domain.Entities;
 
 namespace sysnova.Infrastructure.EventBroker
 {
@@ -18,14 +19,49 @@ namespace sysnova.Infrastructure.EventBroker
         /// <summary>
         /// Loads the module into the kernel.
         /// </summary>
+        public static class ProcessingScope
+        {
+            public static EventBrokerModule Current { get; set; }
+        }
         public override void Load()
         {
             this.Kernel.AddGlobalEventBroker(DefaultGlobalEventBrokerName);
-            //this.Kernel.Bind<IDomainParentEvent>().To<Parent>().RegisterOnEventBroker(DefaultGlobalEventBrokerName);
-            this.Kernel.Bind<IDomainParentEvent>().To<Parent>().RegisterOnGlobalEventBroker();
+            
+            //this.Kernel.Bind<Parent>().ToSelf()
+            
+            //this.Kernel.Bind<IDomainParentEvent>().To<Parent>()
+            //    .RegisterOnEventBroker(DefaultGlobalEventBrokerName);
+            
+            //this.Kernel.Bind(typeof (IDomainParentEvent<Category>)).To<Parent>()
+            //    .InThreadScope()
+            //    .RegisterOnGlobalEventBroker();
+            
+            //this.Kernel.Bind<IDomainChildEvent>().To<Child>().InThreadScope().RegisterOnGlobalEventBroker();
+            
             //this.Kernel.Bind<Parent>().ToSelf().RegisterOnEventBroker(DefaultGlobalEventBrokerName);
-            this.Kernel.Bind<Child>().ToSelf().Named("FirstChild").RegisterOnGlobalEventBroker();
+            
+            //this.Kernel.Bind<Child>().ToSelf()
+            //    .Named("FirstChild")
+                //.WhenInjectedInto<Parent>()
+                //.InDependencyCreatorScope()
+            //    .RegisterOnGlobalEventBroker();
+            
             //this.Kernel.Bind<Child>().ToSelf().Named("SecondChild").RegisterOnEventBroker(DefaultGlobalEventBrokerName);
+            
+            this.Kernel.Bind(typeof (IDomainParentEvent)).To<Parent>()
+                //.InScope(o => { })
+                .RegisterOnGlobalEventBroker();
+
+            this.Kernel.Bind<IDomainChildEvent>().To<Child>()
+                .Named("FirstChild")
+                .RegisterOnGlobalEventBroker();
+
+/*
+            this.Kernel.Bind<Child>().ToSelf()
+            //.InThreadScope()
+            .Named("FirstChild")
+            .RegisterOnGlobalEventBroker();
+ */
         }
 
         /// <summary>

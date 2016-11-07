@@ -43,6 +43,7 @@
     <Compile Include="ICommandBus.cs" />
     <Compile Include="ICommandHandler.cs" />
     <Compile Include="ICommandResult.cs" />
+    <Compile Include="IDomainChildEvent.cs" />
     <Compile Include="IDomainHandler.cs" />
     <Compile Include="IEventDispatcher.cs" />
     <Compile Include="IDomainEvent.cs" />

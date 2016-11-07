@@ -5,15 +5,19 @@ using System.Text;
 using System.Threading.Tasks;
 using sysnova.Infrastructure.Interfaces;
 using sysnova.Infrastructure.CommandBus.Command;
+using sysnova.Domain.Entities;
 
 namespace sysnova.Infrastructure.CommandBus.Handler
 {
     public class CreateOrUpdateCategoryHandler : ICommandHandler<CreateOrUpdateCategoryCommand>
     {
+        //private IDomainParentEvent<Category> _parent;
         private IDomainParentEvent _parent;
-        public CreateOrUpdateCategoryHandler(IDomainParentEvent Parent) //IMappingEngine mapper, ICategoryRepository categoryRepository, IUnitOfWork unitOfWork)
+        //private IDomainChildEvent _child;
+        public CreateOrUpdateCategoryHandler(IDomainParentEvent Parent) //(IDomainParentEvent<Category> Parent) //IMappingEngine mapper, ICategoryRepository categoryRepository, IUnitOfWork unitOfWork)
         {
             this._parent = Parent;
+            //this._child = Child;
             //this.mapper = mapper;
             //this.categoryRepository = categoryRepository;
             //this.unitOfWork = unitOfWork;
@@ -31,8 +35,16 @@ namespace sysnova.Infrastructure.CommandBus.Handler
             unitOfWork.Commit();
             return new CommandResult(true);
             */
+
+            //Mapear con Mapper // Event Log - Creamos objeto para loguear en el EventHandler
+            var category = new Category();
+                Random rnd= new Random();
+                int rndnumber = rnd.Next();
+                category.CategoryId = rndnumber;
+                category.CategoryName = "Autogenerate";
+            // 
             
-            _parent.FireSomeEvent();
+            _parent.FireSomeEvent(); //trackea la creacion de una entidad Category
 
             return new CommandResult(true);
         }

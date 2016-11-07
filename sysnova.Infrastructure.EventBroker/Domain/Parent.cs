@@ -1,5 +1,6 @@
 ﻿using Appccelerate.EventBroker;
 using Ninject;
+using sysnova.Domain.Entities;
 using sysnova.Infrastructure.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -9,23 +10,23 @@ using System.Threading.Tasks;
 
 namespace sysnova.Infrastructure.EventBroker.Domain
 {
-    public class Parent : IDomainParentEvent, IDisposable
+    public class Parent : IDomainParentEvent//, IDisposable //<Category>, IDisposable
     {
-        public Guid Id { get; private set; }
+        public String Id { get; private set; }
 
         public Parent(
-            [Named("FirstChild")] Child firstChild )//,
+            [Named("FirstChild")] IDomainChildEvent firstChild)
             //[Named("SecondChild")]Child secondChild)
         {
             this.FirstChild = firstChild;
             //this.SecondChild = secondChild;
-            this.Id = Guid.NewGuid();
+            this.Id = DateTime.Now.ToString("yyyyMMddHHmmssffff");
         }
 
-        [EventPublication("SomeEventTopic")]
-        public event EventHandler SomeEvent;
+        [EventPublication("SomeEventTopic", HandlerRestriction.Synchronous)]
+        public event EventHandler<CustomEventArgs> SomeEvent;
 
-        public Child FirstChild { get; private set; }
+        public IDomainChildEvent FirstChild { get; private set; }
 
         //public Child SecondChild { get; private set; }
 
@@ -33,8 +34,8 @@ namespace sysnova.Infrastructure.EventBroker.Domain
         {
             if (this.SomeEvent != null)
             {
-                System.Diagnostics.Debug.WriteLine("<----- ID Event Broker --"+this.Id+"--->");
-                this.SomeEvent(this, EventArgs.Empty);
+                System.Diagnostics.Debug.WriteLine("<----- ID Event Broker: --"+this.Id+"-->");
+                this.SomeEvent(this, new CustomEventArgs());
                 Dispose();
             }
         }
@@ -49,8 +50,8 @@ namespace sysnova.Infrastructure.EventBroker.Domain
         {
             if (disposing)
             {
-                System.Diagnostics.Debug.WriteLine("<----- GARBAGEEEEE --->");
-
+                System.Diagnostics.Debug.WriteLine("<----- GARBAGEEEEE PARENT --->");
+                //this.FirstChild = null;
                 // free managed resources
             }
             // free native resources if there are any.

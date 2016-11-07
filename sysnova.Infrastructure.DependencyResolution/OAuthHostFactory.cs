@@ -61,7 +61,7 @@ namespace sysnova.Infrastructure.DependencyResolution
         }
         private static void RegisterServices(IKernel kernel)
         {
-            DomainEvent.Dispatcher = new DefaultEventBus(kernel);
+            //DomainEvent.Dispatcher = new DefaultEventBus(kernel);
 
             var modules = new List<WcfModule>
                 {

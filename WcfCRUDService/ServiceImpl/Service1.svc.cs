@@ -148,12 +148,13 @@ namespace sysnova.Services.CRUDService
                 Name = "LEO",
                 Description = "LEO"
             };
+            
             IEnumerable<ValidationResult> errors = _commandBus.Validate(command);
             var resultBus = _commandBus.Submit(command);
             
             //EventBus
-            var survey = new Survey();
-            survey.EndSurvey(); // NOTIFY EVENT
+            //var survey = new Survey();
+            //survey.EndSurvey(); // NOTIFY EVENT
             //
 
             var principal = Thread.CurrentPrincipal;
@@ -163,6 +164,7 @@ namespace sysnova.Services.CRUDService
             IEnumerable<Category> result = _catRepo.GetById(value);
             string[] s = result.Select(p => string.Format("{0} - {1}", p.CategoryId, p.CategoryName)).ToArray();
             _uow.Commit();
+            //string[] s = {"TEST","THREAD","ASYNC"};
             return s;
         }
 

@@ -22,16 +22,16 @@ namespace ClientWCF
             {             
                 var result = client.GetCategories(13560)[0];
 
-                var cloud = client.DoAddCloud();
+                //var cloud = client.DoAddCloud();
 
-                var help = client.DoAddHelpDesk();
+                //var help = client.DoAddHelpDesk();
 
                 Console.WriteLine(result);
-                Console.WriteLine(cloud);
-                Console.WriteLine(help);
+                //Console.WriteLine(cloud);
+                //Console.WriteLine(help);
 
                 client.Close();
-                Console.Read();
+                //Console.Read();
             }
             catch (FaultException<GlobalErrorDetails> e)
             {

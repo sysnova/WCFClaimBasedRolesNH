@@ -73,6 +73,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Domain\Child.cs" />
+    <Compile Include="Domain\CustomEventArgs.cs" />
     <Compile Include="Domain\Parent.cs" />
     <Compile Include="EventBrokerExtensionMethods.cs" />
     <Compile Include="EventBrokerModule.cs" />
@@ -83,6 +84,14 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\sysnova.Domain.Entities\sysnova.Domain.Entities.csproj">
+      <Project>{d82eea23-8801-47c8-b427-26031bcb004b}</Project>
+      <Name>sysnova.Domain.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\sysnova.Domain.Interfaces\sysnova.Domain.Interfaces.csproj">
+      <Project>{7760ea0c-a146-41f4-9d50-b2512548486b}</Project>
+      <Name>sysnova.Domain.Interfaces</Name>
+    </ProjectReference>
     <ProjectReference Include="..\sysnova.Infrastructure.Interfaces\sysnova.Infrastructure.Interfaces.csproj">
       <Project>{92b4d57f-79b8-4bed-bb31-9dc995edaab2}</Project>
       <Name>sysnova.Infrastructure.Interfaces</Name>

@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace sysnova.Infrastructure.Interfaces
 {
-    public interface IDomainParentEvent //<TEntity> where TEntity : class
+    public interface IDomainChildEvent
     {
-        void FireSomeEvent(); //(TEntity cat);
     }
 }
