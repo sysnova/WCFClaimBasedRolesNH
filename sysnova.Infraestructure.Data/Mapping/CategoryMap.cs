@@ -13,7 +13,7 @@ namespace sysnova.Infraestructure.Data
     {
         public CategoryMap()
         {
-            Cache.ReadOnly();
+            //Cache.ReadOnly();
             Id(x => x.CategoryId);
             Map(x => x.CategoryName);
             HasMany(x => x.Products)

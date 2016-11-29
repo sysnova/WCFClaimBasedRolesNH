@@ -163,8 +163,8 @@ namespace sysnova.Services.CRUDService
 
             IEnumerable<Category> result = _catRepo.GetById(value);
             string[] s = result.Select(p => string.Format("{0} - {1}", p.CategoryId, p.CategoryName)).ToArray();
-            _uow.Commit();
             //string[] s = {"TEST","THREAD","ASYNC"};
+            _uow.Commit();
             return s;
         }
 

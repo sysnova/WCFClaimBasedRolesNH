@@ -10,11 +10,14 @@ namespace sysnova.Infrastructure.EventBroker.Domain
     public class CustomEventArgs : EventArgs
     {
        public Guid Id { get; private set; }
+       public string CategoryName { get; set; }
+
        //public Category Cat { get; private set; }
 
        public CustomEventArgs()// (Category cat)
        {
            this.Id = Guid.NewGuid();
+           this.CategoryName = "EventArg";
            //this.Cat = cat;
        }
     }

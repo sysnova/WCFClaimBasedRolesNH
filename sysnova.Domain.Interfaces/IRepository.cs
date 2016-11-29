@@ -14,5 +14,6 @@ namespace sysnova.Domain.Interfaces
 
         IEnumerable<TEntity> GetAll();
 
+        void Update(TEntity item);
     }
 }

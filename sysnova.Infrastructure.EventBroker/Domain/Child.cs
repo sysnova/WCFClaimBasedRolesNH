@@ -14,14 +14,17 @@ namespace sysnova.Infrastructure.EventBroker.Domain
     public class Child : IDomainChildEvent//, IDisposable
     {
         private IRepository<Category> _catRepo;
-        private IUnitOfWork _uow;
+        //private IUnitOfWork _uow;
         private Guid _id;
         private Boolean executed = false;
+        //public string _CategoryName = "Autogenerate";
+        //public string _Description = "FromEventSource";
+        //public Category _cat = new Category();
 
         public Child(IRepository<Category> catRepo) //por Cache de Objetos valido si ya se ejecuto para evitar excepcion. //IUnitOfWork uow
         {
             _catRepo = catRepo;
-            //_uow = uow; //No hace falta, ya que el commit lo maneja el servicio global.
+            //_uow = uow; //No hace falta, ya que el commit se maneja a nivel servicio global.
             _id = Guid.NewGuid();
         }
         public bool EventReceived { get; private set; }
@@ -34,8 +37,11 @@ namespace sysnova.Infrastructure.EventBroker.Domain
                 if (!executed)
                 {
                     this.EventReceived = true;
+
                     //System.Threading.Thread.Sleep(5000);
-                    _catRepo.Add(_catRepo.GetById(12000).FirstOrDefault()); //SESSION CLOSE!! REVISAR ERROR SOBRE TODO EN BACKGORUND. VER DE LEVANTAR LA SESION DESDE OTRO LUGAR, YA QUE CHILD Y PARENT SE LEVANTA UNA SOLA VEZ
+                    Category _cat = (Category) _catRepo.GetById(12000).FirstOrDefault();
+                    _cat.CategoryName = e.Id.ToString().Substring(0, 15);
+                    _catRepo.Update(_cat); //SESSION CLOSE!! REVISAR ERROR SOBRE TODO EN BACKGORUND. VER DE LEVANTAR LA SESION DESDE OTRO LUGAR, YA QUE CHILD Y PARENT SE LEVANTA UNA SOLA VEZ
                     //_uow.Commit();
                     System.Diagnostics.Debug.WriteLine("<----- Raise Event Category ----->");
                     executed = true;

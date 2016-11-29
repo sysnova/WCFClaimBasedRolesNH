@@ -26,7 +26,7 @@ namespace sysnova.Infrastructure.EventBroker.Domain
         [EventPublication("SomeEventTopic", HandlerRestriction.Synchronous)]
         public event EventHandler<CustomEventArgs> SomeEvent;
 
-        public IDomainChildEvent FirstChild { get; private set; }
+        public IDomainChildEvent FirstChild { get; private set; } //private set
 
         //public Child SecondChild { get; private set; }
 
@@ -35,6 +35,7 @@ namespace sysnova.Infrastructure.EventBroker.Domain
             if (this.SomeEvent != null)
             {
                 System.Diagnostics.Debug.WriteLine("<----- ID Event Broker: --"+this.Id+"-->");
+                
                 this.SomeEvent(this, new CustomEventArgs());
                 Dispose();
             }

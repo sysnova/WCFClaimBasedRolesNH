@@ -23,10 +23,15 @@ namespace sysnova.Infraestructure.Data
             return (int)Session.Save(item);
         }
 
+        public void Update(TEntity item)
+        {
+            Session.SaveOrUpdate(item);
+        }
+
         public IEnumerable<TEntity> GetById(int Id)
         {
             ICriteria criteria = Session.CreateCriteria(typeof(TEntity));
-            criteria.SetCacheable(true);
+            //criteria.SetCacheable(true);
             if (typeof(TEntity).Name.Equals("Category"))
                 criteria.Add(Restrictions.Eq("CategoryId", Id));
             else if (typeof(TEntity).Name.Equals("Cloud") || typeof(TEntity).Name.Equals("HelpDesk"))

@@ -20,7 +20,7 @@ namespace ClientWCF
             client.ClientCredentials.UserName.Password = "technisys";
             try
             {             
-                var result = client.GetCategories(13560)[0];
+                var result = client.GetCategories(12000)[0];
 
                 //var cloud = client.DoAddCloud();
 
