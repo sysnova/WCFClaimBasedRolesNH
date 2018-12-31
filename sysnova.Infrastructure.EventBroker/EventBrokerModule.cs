@@ -50,6 +50,7 @@ namespace sysnova.Infrastructure.EventBroker
             
             this.Kernel.Bind(typeof (IDomainParentEvent)).To<Parent>()
                 //.InScope(o => { })
+                .Named("Parent")
                 .RegisterOnGlobalEventBroker();
 
             this.Kernel.Bind<IDomainChildEvent>().To<Child>()

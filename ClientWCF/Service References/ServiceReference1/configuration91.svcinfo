@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="dDwrJM3s+45g0eo6J3aBSraM7DI=">
+<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="jX9jpkuONuVHmrE34IcN2RY/ua8=">
   <bindingConfigurations>
     <bindingConfiguration bindingType="wsHttpBinding" name="wsHttpsService">
       <properties>
@@ -127,10 +127,10 @@
     </bindingConfiguration>
   </bindingConfigurations>
   <endpoints>
-    <endpoint name="wsHttpsService" contract="ServiceReference1.IService1" bindingType="wsHttpBinding" address="https://ntbk-tech012/CRUDService/ServiceImpl/Service1.svc" bindingConfiguration="wsHttpsService">
+    <endpoint name="wsHttpsService" contract="ServiceReference1.IService1" bindingType="wsHttpBinding" address="https://ntbk-144/CRUDService/ServiceImpl/Service1.svc" bindingConfiguration="wsHttpsService">
       <properties>
         <property path="/address" isComplexType="false" isExplicitlyDefined="true" clrType="System.Uri, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>https://ntbk-tech012/CRUDService/ServiceImpl/Service1.svc</serializedValue>
+          <serializedValue>https://ntbk-144/CRUDService/ServiceImpl/Service1.svc</serializedValue>
         </property>
         <property path="/behaviorConfiguration" isComplexType="false" isExplicitlyDefined="false" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue />

@@ -26,6 +26,9 @@ using sysnova.Infrastructure.EventBus.Handlers;
 using sysnova.Infrastructure.EventBus.Dispatcher;
 //using sysnova.Infrastructure.EventBus;
 
+//Processor New Thread
+using sysnova.Infrastructure.EventBroker.Domain;
+//
 
 namespace sysnova.Infrastructure.DependencyResolution
 {
@@ -34,13 +37,18 @@ namespace sysnova.Infrastructure.DependencyResolution
         public override void Load()
         {
 
-            Bind<ISessionFactory>().ToProvider<NhibernateSessionFactoryProvider>().InSingletonScope();
+            Bind<ISessionFactory>().ToProvider<NhibernateSessionFactoryProvider>().InRequestScope();//InSingletonScope
 
             Bind<ISession>().ToMethod(context => context.Kernel.Get<ISessionFactory>().OpenSession()).InRequestScope();
             
             Bind<IUnitOfWork>().To<UnitOfWork>().InRequestScope();
 
-            Bind(typeof(IRepository<>)).To(typeof(GenericRepository<>));
+            Bind(typeof(IRepository<>)).To(typeof(GenericRepository<>)).InRequestScope(); //Estoy jugando para salvar el thread 
+
+            //Nuevo para ver el tema del Repositorio en un nuevo Thread - Ver MyJobProcessor en Child
+            Bind<MyJobProcessor>().ToSelf().Named("MyJobProcessor");
+            //Bind(typeof(IRepository<>)).To(typeof(GenericRepository<>)).WhenAnyAncestorNamed("MyJobProcessor");
+            //
 
             Bind<IProductService>().To<ProductService>();
 

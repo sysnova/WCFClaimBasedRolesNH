@@ -25,7 +25,7 @@ namespace sysnova.Services.CRUDService
 {
     // NOTE: You can use the "Rename" command on the "Refactor" menu to change the class name "Service1" in code, svc and config file together.
     // NOTE: In order to launch WCF Test Client for testing this service, please select Service1.svc or Service1.svc.cs at the Solution Explorer and start debugging.
-    [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerCall)]
+    [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerSession)]
     [GlobalErrorHandlerBehaviour(typeof(GlobalErrorHandler))]
     public class Service1 : IService1
     {
@@ -138,18 +138,19 @@ namespace sysnova.Services.CRUDService
             return idHelp.ToString();
         }
 
-        [PrincipalPermission(SecurityAction.Demand, Authenticated = true, Role = "Produce")]
+        [PrincipalPermission(SecurityAction.Demand, Authenticated = true, Role = "Condiments")]
         public string[] GetCategories(int value)
         {
             //CommandBus
             var command = new CreateOrUpdateCategoryCommand()
             {
-                CategoryId = 123,
+                CategoryId = 8,
                 Name = "LEO",
                 Description = "LEO"
             };
             
             IEnumerable<ValidationResult> errors = _commandBus.Validate(command);
+
             var resultBus = _commandBus.Submit(command);
             
             //EventBus
@@ -158,7 +159,7 @@ namespace sysnova.Services.CRUDService
             //
 
             var principal = Thread.CurrentPrincipal;
-            if (!(principal.IsInRole("Produce")))
+            if (!(principal.IsInRole("Condiments")))
                 throw new System.ServiceModel.Security.SecurityAccessDeniedException("Insuficient privileges - Procedure");
 
             IEnumerable<Category> result = _catRepo.GetById(value);

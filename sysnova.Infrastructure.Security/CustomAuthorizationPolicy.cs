@@ -1,4 +1,5 @@
-﻿using Ninject.Web.Common;
+﻿using Ninject;
+using Ninject.Web.Common;
 using sysnova.Domain.Entities;
 using sysnova.Domain.Interfaces;
 using sysnova.Infraestructure.Data;
@@ -22,26 +23,31 @@ namespace sysnova.Infrastructure.Security
     public class CustomAuthorizationPolicy : IAuthorizationPolicy
     {
         IProductService _serviceCategory;
-        
-        public CustomAuthorizationPolicy(IProductService serviceCategory)
+        private static readonly object _padlock = new object();
+
+        public CustomAuthorizationPolicy(IKernel kernel)//(IProductService serviceCategory)
         {
-            _serviceCategory = serviceCategory;
+            //_serviceCategory = serviceCategory;
+            _serviceCategory = (IProductService) kernel.Get(typeof(IProductService));
         }
         public bool Evaluate(EvaluationContext evaluationContext, ref object state)
         {
-            var identity = (evaluationContext.Properties["Identities"] as List<IIdentity>).Single(i => i.AuthenticationType == "CustomUserNameValidator");
-            var claimsIdentity = new ClaimsIdentity(identity);
+            lock (_padlock)
+            {
+                var identity = (evaluationContext.Properties["Identities"] as List<IIdentity>).Single(i => i.AuthenticationType == "CustomUserNameValidator");
+                var claimsIdentity = new ClaimsIdentity(identity);
 
-            IEnumerable<Category> result = _serviceCategory.GetCategories(7);
-            
-            //ITERAR POR ROLES
-            claimsIdentity.AddClaim(new System.Security.Claims.Claim(System.Security.Claims.ClaimTypes.Role, result.FirstOrDefault().CategoryName));
-            claimsIdentity.AddClaim(new System.Security.Claims.Claim(System.Security.Claims.ClaimTypes.Role, "Networking"));
-            var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
-            //
-            evaluationContext.Properties["Principal"] = claimsPrincipal;
-            Thread.CurrentPrincipal = claimsPrincipal;
-            return true;
+                IEnumerable<Category> result = _serviceCategory.GetCategories(2);
+
+                //ITERAR POR ROLES
+                claimsIdentity.AddClaim(new System.Security.Claims.Claim(System.Security.Claims.ClaimTypes.Role, result.FirstOrDefault().CategoryName));
+                claimsIdentity.AddClaim(new System.Security.Claims.Claim(System.Security.Claims.ClaimTypes.Role, "Networking"));
+                var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
+                //
+                evaluationContext.Properties["Principal"] = claimsPrincipal;
+                Thread.CurrentPrincipal = claimsPrincipal;
+                return true;
+            }
         }
 
         protected virtual ClaimSet GetClaimSetByIdentity(IIdentity identity)

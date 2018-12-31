@@ -219,9 +219,9 @@
   </wsdl:binding>
   <wsdl:service name="Service1">
     <wsdl:port name="wsHttpsService" binding="tns:wsHttpsService">
-      <soap12:address location="https://ntbk-tech012/CRUDService/ServiceImpl/Service1.svc" />
+      <soap12:address location="https://ntbk-144/CRUDService/ServiceImpl/Service1.svc" />
       <wsa10:EndpointReference>
-        <wsa10:Address>https://ntbk-tech012/CRUDService/ServiceImpl/Service1.svc</wsa10:Address>
+        <wsa10:Address>https://ntbk-144/CRUDService/ServiceImpl/Service1.svc</wsa10:Address>
       </wsa10:EndpointReference>
     </wsdl:port>
   </wsdl:service>

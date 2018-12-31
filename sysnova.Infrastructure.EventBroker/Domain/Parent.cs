@@ -34,7 +34,7 @@ namespace sysnova.Infrastructure.EventBroker.Domain
         {
             if (this.SomeEvent != null)
             {
-                System.Diagnostics.Debug.WriteLine("<----- ID Event Broker: --"+this.Id+"-->");
+                System.Diagnostics.Debug.WriteLine("<----- Parent ID Event Broker: --"+this.Id+"-->");
                 
                 this.SomeEvent(this, new CustomEventArgs());
                 Dispose();

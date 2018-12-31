@@ -5,11 +5,13 @@
     <!--WIF 4.5 sections -->
     <section name="system.identityModel" type="System.IdentityModel.Configuration.SystemIdentityModelSection, System.IdentityModel, Version=4.0.0.0, Culture=neutral, PublicKeyToken=B77A5C561934E089" />
   </configSections>
+  
   <system.identityModel>
     <identityConfiguration>
       <claimsAuthenticationManager type="sysnova.Infrastructure.Security.ClaimsTransformationModule, sysnova.Infrastructure.Security" />
     </identityConfiguration>
   </system.identityModel>
+  
   <hibernate-configuration xmlns="urn:nhibernate-configuration-2.2">
     <session-factory>
       <property name="connection.provider">NHibernate.Connection.DriverConnectionProvider</property>
@@ -21,32 +23,40 @@
       <property name="cache.provider_class">NHibernate.Cache.HashtableCacheProvider</property>
       <property name="cache.use_second_level_cache">true</property>
       <property name="cache.use_query_cache">true</property>
+      
     </session-factory>
   </hibernate-configuration>
+  
   <appSettings>
     <add key="aspnet:UseTaskFriendlySynchronizationContext" value="true" />
   </appSettings>
+  
   <connectionStrings>
     <add name="NorthwindConnection" providerName="System.Data.SqlClient" connectionString="Data Source=.\sqlexpress;Initial Catalog=Northwind;User Id=sa; Password=1$%admin;Enlist=False;Pooling=True;Max Pool Size=100" />
   </connectionStrings>
+  
   <system.web>
     <compilation debug="true" targetFramework="4.5" />
     <httpRuntime targetFramework="4.5" />
   </system.web>
+  
   <system.serviceModel>
+
     <bindings>
+      
       <basicHttpBinding>
-        <binding name="httpBinding">
-          <security mode="None">
-          </security>
-        </binding>
+          <binding name="httpBinding">
+            <security mode="None">
+            </security>
+          </binding>        
       </basicHttpBinding>
+      
       <wsHttpBinding>
         <binding name="wsHttpBindingSec" maxReceivedMessageSize="65536">
           <readerQuotas maxStringContentLength="65536" maxArrayLength="65536" maxBytesPerRead="65536" />
-          <security mode="TransportWithMessageCredential">
-            <message clientCredentialType="UserName" />
-          </security>
+            <security mode="TransportWithMessageCredential">
+              <message clientCredentialType="UserName" />
+            </security>
         </binding>
         <binding name="wsHttpBindingNoSCT">
           <security mode="None">
@@ -54,8 +64,10 @@
             <message establishSecurityContext="false" />
           </security>
         </binding>
-      </wsHttpBinding>
-    </bindings>
+      </wsHttpBinding>      
+
+    </bindings> 
+    
     <services>
       <!--
       <service behaviorConfiguration="defaultProfile" name="sysnova.Services.CRUDService.Service1">
@@ -67,12 +79,13 @@
         <endpoint address="mex" binding="mexHttpsBinding" contract="IMetadataExchange" />
       </service>
     </services>
+    
     <behaviors>
       <serviceBehaviors>
         <behavior name="WSProfile">
-          <serviceMetadata httpGetEnabled="true" />
-          <serviceDebug includeExceptionDetailInFaults="true" />
-          <!-- SE REEMPLAZO POR UN HOSTFACTORYCUSTOM Y SE DEFINIO POR PROGRAMACION LOS MISMOS VALORES
+	        <serviceMetadata httpGetEnabled="true" />
+              <serviceDebug includeExceptionDetailInFaults="true" />
+                <!-- SE REEMPLAZO POR UN HOSTFACTORYCUSTOM Y SE DEFINIO POR PROGRAMACION LOS MISMOS VALORES
                      TUVE QUE HACER UN FACTORY CUSTOM PORQUE NECESITABA INJECTAR EL REPOSITORY Y EN LOS VALIDATORS
                      AUN NINJECT NO CARGABA LAS DEPENDENCIAS
                      
@@ -88,19 +101,24 @@
                      customUserNamePasswordValidatorType="sysnova.Infrastructure.Security.CustomUserNameValidator, sysnova.Infrastructure.Security" />
                 </serviceCredentials>
                 -->
-        </behavior>
+        </behavior>        
+        
         <behavior>
-          <serviceMetadata httpGetEnabled="true" httpsGetEnabled="true" />
-          <!-- To receive exception details in faults for debugging purposes, set the value below to true.  Set to false before deployment to avoid disclosing exception information -->
-          <serviceDebug includeExceptionDetailInFaults="false" />
+            <serviceMetadata httpGetEnabled="true" httpsGetEnabled="true" />
+            <!-- To receive exception details in faults for debugging purposes, set the value below to true.  Set to false before deployment to avoid disclosing exception information -->
+            <serviceDebug includeExceptionDetailInFaults="false" />        
         </behavior>
+
       </serviceBehaviors>
     </behaviors>
+        
     <protocolMapping>
-      <add binding="basicHttpBinding" scheme="http" />
-    </protocolMapping>
+        <add binding="basicHttpBinding" scheme="http" />
+    </protocolMapping>    
+    
     <serviceHostingEnvironment aspNetCompatibilityEnabled="true" multipleSiteBindingsEnabled="true" />
   </system.serviceModel>
+  
   <system.webServer>
     <modules runAllManagedModulesForAllRequests="true">
       <add name="UrlRoutingModule" type="System.Web.Routing.UrlRoutingModule, System.Web, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
@@ -114,8 +132,8 @@
         Set to false before deployment to avoid disclosing web app folder information.
       -->
     <directoryBrowse enabled="true" />
-    <validation validateIntegratedModeConfiguration="false" />
   </system.webServer>
+  
   <runtime>
     <assemblyBinding xmlns="urn:schemas-microsoft-com:asm.v1">
       <dependentAssembly>
@@ -124,4 +142,5 @@
       </dependentAssembly>
     </assemblyBinding>
   </runtime>
+
 </configuration>

@@ -19,39 +19,47 @@ namespace sysnova.Infrastructure.Security
     public class MyServiceAuthorizationManager : ServiceAuthorizationManager
     {
         IProductService _serviceCategory;
+        private static readonly object _padlock = new object();
 
-        public MyServiceAuthorizationManager(IProductService serviceCategory)
+
+        public MyServiceAuthorizationManager(IKernel kernel)//(IProductService serviceCategory)
         {
-            _serviceCategory = serviceCategory;
+            //_serviceCategory = serviceCategory;
+            _serviceCategory = (IProductService)kernel.Get(typeof(IProductService));
+
         }
 
         protected override bool CheckAccessCore(OperationContext operationContext)
         {
-            IEnumerable<Category> result = _serviceCategory.GetCategories(12350);
-            
-            //CHECK IDENTITY PRIMARY
-            IIdentity identity = operationContext.ServiceSecurityContext.PrimaryIdentity;
-            
-            if (identity == null)
-                throw new FaultException();//Es capturada por el IErrorHandler genérico
+            lock (_padlock)
+            {
+                //Accedo al Repo dentro del ServiceAuthManager
+                IEnumerable<Category> result = _serviceCategory.GetCategories(3);
 
-            //CHECK IDENTITY PRINCIPAL
-            var principal = Thread.CurrentPrincipal;
-            if (!(principal.IsInRole("Produce")))
-                throw new MessageSecurityException("CheckAccessCore is invalid", new FaultException("Core is invalid"));
-            
-            // Extract the action URI from the OperationContext. Match this against the claims
-            // in the AuthorizationContext.
-            string action = operationContext.RequestContext.RequestMessage.Headers.Action;
-            //Thread.CurrentPrincipal.IsInRole("Admin");
-            //return true;
+                //CHECK IDENTITY PRIMARY
+                IIdentity identity = operationContext.ServiceSecurityContext.PrimaryIdentity;
 
-            //CHECK HEADER CUSTOM
-            //var requestMessage = operationContext.RequestContext.RequestMessage;
-            //var requestProperty = (HttpRequestMessageProperty)requestMessage
-            //    .Properties[HttpRequestMessageProperty.Name];
-            //var token = requestProperty.Headers["X-MyCustomHeader"];
-            return true;
+                if (identity == null)
+                    throw new FaultException();//Es capturada por el IErrorHandler genérico
+
+                //CHECK IDENTITY PRINCIPAL
+                var principal = Thread.CurrentPrincipal;
+                if (!(principal.IsInRole("Condiments")))
+                    throw new MessageSecurityException("CheckAccessCore is invalid", new FaultException("Core is invalid"));
+
+                // Extract the action URI from the OperationContext. Match this against the claims
+                // in the AuthorizationContext.
+                string action = operationContext.RequestContext.RequestMessage.Headers.Action;
+                //Thread.CurrentPrincipal.IsInRole("Admin");
+                //return true;
+
+                //CHECK HEADER CUSTOM
+                //var requestMessage = operationContext.RequestContext.RequestMessage;
+                //var requestProperty = (HttpRequestMessageProperty)requestMessage
+                //    .Properties[HttpRequestMessageProperty.Name];
+                //var token = requestProperty.Headers["X-MyCustomHeader"];
+                return true;
+            }
             
             // Iterate through the various claim sets in the AuthorizationContext.
             /*

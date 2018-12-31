@@ -1,4 +1,5 @@
-﻿using sysnova.Domain.Entities;
+﻿using Ninject;
+using sysnova.Domain.Entities;
 using sysnova.Domain.Interfaces;
 using sysnova.Infrastructure.Errors;
 using sysnova.Infrastructure.Interfaces;
@@ -19,20 +20,26 @@ namespace sysnova.Infrastructure.Security
 {
     public class CustomUserNameValidator : UserNamePasswordValidator
     {
-        
+        private static readonly object _padlock = new object();
         IProductService _serviceCategory;
-        public CustomUserNameValidator(IProductService serviceCategory)
+
+        public CustomUserNameValidator (IKernel kernel) //(IProductService serviceCategory)
         {
-           _serviceCategory = serviceCategory;
+            //_serviceCategory = serviceCategory;
+            _serviceCategory = (IProductService)kernel.Get(typeof(IProductService));
         }
-        
+
         public override void Validate(string userName, string password)
         {
-            IEnumerable<Category> result = _serviceCategory.GetCategories(7);
-
-            if (!(result.FirstOrDefault().CategoryName == "Produce"))
+            lock (_padlock)
             {
-                throw new MessageSecurityException("Userid or Password is invalid", new FaultException("Userid or Password is invalid"));
+            
+                IEnumerable<Category> result = _serviceCategory.GetCategories(1);
+
+                if (!(result.FirstOrDefault().CategoryName == "Beverages"))
+                {
+                    throw new MessageSecurityException("Userid or Password is invalid", new FaultException("Userid or Password is invalid"));
+                }
             }
 
         }

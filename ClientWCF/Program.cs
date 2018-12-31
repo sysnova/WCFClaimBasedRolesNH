@@ -15,12 +15,13 @@ namespace ClientWCF
 
             ServicePointManager.ServerCertificateValidationCallback = new RemoteCertificateValidationCallback(
                  delegate { return true; });
+
             var client = new Service1Client();
             client.ClientCredentials.UserName.UserName = "technisys";
-            client.ClientCredentials.UserName.Password = "technisys";
+            client.ClientCredentials.UserName.Password = "technisys1";
             try
             {             
-                var result = client.GetCategories(12000)[0];
+                var result = client.GetCategories(4)[0];
 
                 //var cloud = client.DoAddCloud();
 

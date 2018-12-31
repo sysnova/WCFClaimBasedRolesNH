@@ -36,11 +36,12 @@ namespace sysnova.Infrastructure.DependencyResolution
         {
             var host = base.CreateServiceHost(serviceType, baseAddresses);          
             
-            IProductService _className = (IProductService) _kernel.Get(typeof(IProductService));
+            //Voy a tratar de injectar el Kernel y no el Servicio en los Custom Authorization y Authentication
+            //IProductService _className = (IProductService) _kernel.Get(typeof(IProductService));
             
             //AUTHENTICATION
             host.Credentials.UserNameAuthentication.UserNamePasswordValidationMode = UserNamePasswordValidationMode.Custom;
-            host.Credentials.UserNameAuthentication.CustomUserNamePasswordValidator = new CustomUserNameValidator(_className);
+            host.Credentials.UserNameAuthentication.CustomUserNamePasswordValidator = new CustomUserNameValidator(_kernel);
             //FIN AUTHENTICATION
 
             //AUTHORIZATION MANAGER & POLICY
@@ -50,11 +51,11 @@ namespace sysnova.Infrastructure.DependencyResolution
                 policies.AddRange(host.Authorization.ExternalAuthorizationPolicies);
             }
             // Add new policy
-            policies.Add(new CustomAuthorizationPolicy(_className)); //REGLA CUSTOM
+            policies.Add(new CustomAuthorizationPolicy(_kernel)); //REGLA CUSTOM
             host.Authorization.ExternalAuthorizationPolicies = policies.AsReadOnly();
             // Set correct mode
             host.Authorization.PrincipalPermissionMode = PrincipalPermissionMode.Custom;
-            host.Authorization.ServiceAuthorizationManager = new MyServiceAuthorizationManager(_className);
+            host.Authorization.ServiceAuthorizationManager = new MyServiceAuthorizationManager(_kernel);
             //FIN AUTHORIZATION
 
             return host;

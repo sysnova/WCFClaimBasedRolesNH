@@ -36,7 +36,8 @@ namespace sysnova.Infrastructure.CommandBus.Handler
             return new CommandResult(true);
             */
 
-            //Mapear con Mapper // Event Log - Creamos objeto para loguear en el EventHandler
+            //Mapear con Mapper 
+            // Event Log - Creamos objeto para loguear en el EventHandler
             var category = new Category();
                 Random rnd= new Random();
                 int rndnumber = rnd.Next();
