@@ -10,6 +10,7 @@ namespace sysnova.Domain.Entities
     {
         public virtual int CategoryId { get; set; }
         public virtual string CategoryName { get; set; }
+        public virtual string Description { get; set; }
         public virtual IEnumerable<Product> Products { get; set; }
     }
 }

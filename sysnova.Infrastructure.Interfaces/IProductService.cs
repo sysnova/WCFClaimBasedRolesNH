@@ -12,6 +12,8 @@ namespace sysnova.Infrastructure.Interfaces
         //IMPLEMENTAR T > Generic tanto en GetCategories como en Add
         IEnumerable<Category> GetCategories(int Id);
 
+        void UpdateCat(Category category);
+
         int AddCloud(Cloud item);
 
         int AddHelpDesk(HelpDesk item);

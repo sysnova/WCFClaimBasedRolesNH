@@ -25,7 +25,7 @@ namespace sysnova.Infrastructure.DependencyResolution
         public OAuthHostFactory()
         {
             _kernel = new StandardKernel();
-            _kernel.Bind<ServiceHost>().To<NinjectServiceHost>();
+            _kernel.Bind<ServiceHost>().To<NinjectServiceHost>().InTransientScope();
             //_kernel.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);
             RegisterServices(_kernel);
             SetKernel(_kernel);

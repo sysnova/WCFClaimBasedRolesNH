@@ -7,14 +7,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Ninject;
+using sysnova.Domain.Interfaces;
 
 namespace sysnova.Infrastructure.CommandBus.Dispatcher
 {
     public class DefaultCommandBus : ICommandBus
     {
         private IKernel _kernel;
-        public DefaultCommandBus(IKernel kernel)
+        private IUnitOfWork _uow;
+        private ICommandResult _result;
+        public DefaultCommandBus(IKernel kernel, IUnitOfWork unitOfWork)
         {
+            _uow = unitOfWork;
             _kernel = kernel;
         }
         public ICommandResult Submit<TCommand>(TCommand command)
@@ -26,8 +30,9 @@ namespace sysnova.Infrastructure.CommandBus.Dispatcher
             {
                 throw new CommandHandlerNotFoundException(typeof(TCommand));
             }
-
-            return handler.Execute(command);
+                _result = handler.Execute(command);
+                _uow.Commit();
+            return _result;
         }
 
         public IEnumerable<ValidationResult> Validate<TCommand>(TCommand command)

@@ -9,11 +9,11 @@ namespace sysnova.Infrastructure.CommandBus.Command
 {
     public class CommandResult : ICommandResult
     {
-        public CommandResult(bool success)
+        public CommandResult(string[] result)
         {
-            this.Success = success;
+            this.Success = result;
         }
 
-        public bool Success { get; protected set; }
+        public string[] Success { get; protected set; }
     }
 }

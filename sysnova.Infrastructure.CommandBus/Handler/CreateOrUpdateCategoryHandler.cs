@@ -13,10 +13,12 @@ namespace sysnova.Infrastructure.CommandBus.Handler
     {
         //private IDomainParentEvent<Category> _parent;
         private IDomainParentEvent _parent;
+        private IProductService _serviceCat;
         //private IDomainChildEvent _child;
-        public CreateOrUpdateCategoryHandler(IDomainParentEvent Parent) //(IDomainParentEvent<Category> Parent) //IMappingEngine mapper, ICategoryRepository categoryRepository, IUnitOfWork unitOfWork)
+        public CreateOrUpdateCategoryHandler(IDomainParentEvent Parent, IProductService Service) //(IDomainParentEvent<Category> Parent) //IMappingEngine mapper, ICategoryRepository categoryRepository, IUnitOfWork unitOfWork)
         {
             this._parent = Parent;
+            _serviceCat = Service;
             //this._child = Child;
             //this.mapper = mapper;
             //this.categoryRepository = categoryRepository;
@@ -24,30 +26,24 @@ namespace sysnova.Infrastructure.CommandBus.Handler
         }
         public ICommandResult Execute(CreateOrUpdateCategoryCommand command)
         {
-            /*
-            var category = this.mapper.Map<Category>(command);
 
-            if (category.CategoryId == 0)
-                categoryRepository.Add(category);
-            else
-                categoryRepository.Update(category);
-
-            unitOfWork.Commit();
-            return new CommandResult(true);
-            */
-
-            //Mapear con Mapper 
-            // Event Log - Creamos objeto para loguear en el EventHandler
+            //Mapear con Mapper -> Command to Category             
             var category = new Category();
-                Random rnd= new Random();
-                int rndnumber = rnd.Next();
-                category.CategoryId = rndnumber;
-                category.CategoryName = "Autogenerate";
-            // 
-            
+                //Random rnd= new Random();
+                //int rndnumber = rnd.Next();
+                category.CategoryId = command.CategoryId;
+                category.CategoryName = command.Name;
+                category.Description = command.Description;
+
+            _serviceCat.UpdateCat(category);
+
+            //By SERVICE
+            IEnumerable<Category> result = _serviceCat.GetCategories(category.CategoryId);
+            string[] s = result.Select(p => string.Format("{0} - {1} - {2}", p.CategoryId, p.CategoryName, p.Description)).ToArray();
+
             _parent.FireSomeEvent(); //trackea la creacion de una entidad Category
 
-            return new CommandResult(true);
+            return new CommandResult(s);
         }
     }
 }

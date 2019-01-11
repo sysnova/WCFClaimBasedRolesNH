@@ -22,18 +22,21 @@ namespace sysnova.Infrastructure.Security
 {
     public class CustomAuthorizationPolicy : IAuthorizationPolicy
     {
-        IProductService _serviceCategory;
-        private static readonly object _padlock = new object();
+        //IProductService _serviceCategory;
+        //private static readonly object _padlock = new object();
+        IKernel _kernel;
 
         public CustomAuthorizationPolicy(IKernel kernel)//(IProductService serviceCategory)
         {
             //_serviceCategory = serviceCategory;
-            _serviceCategory = (IProductService) kernel.Get(typeof(IProductService));
+            _kernel = kernel;
         }
         public bool Evaluate(EvaluationContext evaluationContext, ref object state)
         {
-            lock (_padlock)
-            {
+            IProductService _serviceCategory = (IProductService)_kernel.Get(typeof(IProductService));
+
+            //lock (_padlock)
+            //{
                 var identity = (evaluationContext.Properties["Identities"] as List<IIdentity>).Single(i => i.AuthenticationType == "CustomUserNameValidator");
                 var claimsIdentity = new ClaimsIdentity(identity);
 
@@ -47,7 +50,7 @@ namespace sysnova.Infrastructure.Security
                 evaluationContext.Properties["Principal"] = claimsPrincipal;
                 Thread.CurrentPrincipal = claimsPrincipal;
                 return true;
-            }
+            //}
         }
 
         protected virtual ClaimSet GetClaimSetByIdentity(IIdentity identity)

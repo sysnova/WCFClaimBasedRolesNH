@@ -20,19 +20,22 @@ namespace sysnova.Infrastructure.Security
 {
     public class CustomUserNameValidator : UserNamePasswordValidator
     {
-        private static readonly object _padlock = new object();
-        IProductService _serviceCategory;
+        //private static readonly object _padlock = new object();
+        //IProductService _serviceCategory;
+        IKernel _kernel;
 
         public CustomUserNameValidator (IKernel kernel) //(IProductService serviceCategory)
         {
             //_serviceCategory = serviceCategory;
-            _serviceCategory = (IProductService)kernel.Get(typeof(IProductService));
+            _kernel = kernel;
         }
 
         public override void Validate(string userName, string password)
         {
-            lock (_padlock)
-            {
+            IProductService _serviceCategory = (IProductService)_kernel.Get(typeof(IProductService));
+
+            //lock (_padlock)
+            //{
             
                 IEnumerable<Category> result = _serviceCategory.GetCategories(1);
 
@@ -40,7 +43,7 @@ namespace sysnova.Infrastructure.Security
                 {
                     throw new MessageSecurityException("Userid or Password is invalid", new FaultException("Userid or Password is invalid"));
                 }
-            }
+            //}
 
         }
 

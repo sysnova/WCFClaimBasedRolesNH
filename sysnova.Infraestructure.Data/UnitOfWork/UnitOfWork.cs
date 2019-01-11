@@ -21,6 +21,7 @@ namespace sysnova.Infraestructure.Data
             _sessionFactory = sessionFactory;
             _session = _sessionFactory.OpenSession();
             _transaction = _session.BeginTransaction();
+            _session.FlushMode = FlushMode.Commit;
         }
 
         public void Commit()
@@ -41,6 +42,7 @@ namespace sysnova.Infraestructure.Data
             }
             finally
             {
+                _session.Flush();
                 _session.Dispose();
             }
         }
@@ -57,9 +59,6 @@ namespace sysnova.Infraestructure.Data
                 _session.Dispose();
             }
         }
-        public Guid GetSessionId()
-        {
-            return _session.GetSessionImplementation().SessionId;
-        }
+
     }
 }

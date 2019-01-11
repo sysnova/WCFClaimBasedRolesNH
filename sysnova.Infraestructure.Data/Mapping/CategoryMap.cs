@@ -16,6 +16,7 @@ namespace sysnova.Infraestructure.Data
             //Cache.ReadOnly();
             Id(x => x.CategoryId);
             Map(x => x.CategoryName);
+            Map(x => x.Description);
             HasMany(x => x.Products)
                 .LazyLoad();
             Table("Categories");

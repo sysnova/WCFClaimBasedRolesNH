@@ -18,7 +18,7 @@
           <boolProp name="LoopController.continue_forever">false</boolProp>
           <stringProp name="LoopController.loops">10000</stringProp>
         </elementProp>
-        <stringProp name="ThreadGroup.num_threads">200</stringProp>
+        <stringProp name="ThreadGroup.num_threads">10</stringProp>
         <stringProp name="ThreadGroup.ramp_time">60</stringProp>
         <boolProp name="ThreadGroup.scheduler">false</boolProp>
         <stringProp name="ThreadGroup.duration"></stringProp>
@@ -36,8 +36,6 @@
             <collectionProp name="Arguments.arguments"/>
           </elementProp>
           <stringProp name="SystemSampler.directory">C:\Users\Leonardo\Documents\Visual Studio 2013\Projects\WcfCRUDService\ClientWCF\bin\Debug</stringProp>
-          <longProp name="SystemSampler.timeout">5000</longProp>
-          <stringProp name="SystemSampler.stdout">C:\Users\Leonardo\Documents\Visual Studio 2013\Projects\GPS\WCF\rock.txt</stringProp>
         </SystemSampler>
         <hashTree>
           <ResultCollector guiclass="SummaryReport" testclass="ResultCollector" testname="Summary Report" enabled="true">

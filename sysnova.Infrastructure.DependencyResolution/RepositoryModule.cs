@@ -36,32 +36,26 @@ namespace sysnova.Infrastructure.DependencyResolution
     {
         public override void Load()
         {
-
-            Bind<ISessionFactory>().ToProvider<NhibernateSessionFactoryProvider>().InRequestScope();//InSingletonScope
-
-            Bind<ISession>().ToMethod(context => context.Kernel.Get<ISessionFactory>().OpenSession()).InRequestScope();
-            
-            Bind<IUnitOfWork>().To<UnitOfWork>().InRequestScope();
-
-            Bind(typeof(IRepository<>)).To(typeof(GenericRepository<>)).InRequestScope(); //Estoy jugando para salvar el thread 
-
+            Bind<ISessionFactory>().ToProvider<NhibernateSessionFactoryProvider>()
+                .InSingletonScope();
+            //Bind<ISession>().ToMethod(context => context.Kernel.Get<ISessionFactory>().OpenSession())
+            //    .InRequestScope();
+            Bind<IUnitOfWork>().To<UnitOfWork>()
+                .InRequestScope();
+            //Bind(x => x.FromAssembliesMatching("*").SelectAllClasses().Excluding<UnitOfWork>().BindDefaultInterface());
+            Bind(typeof(IRepository<>)).To(typeof(GenericRepository<>)).InRequestScope();
             //Nuevo para ver el tema del Repositorio en un nuevo Thread - Ver MyJobProcessor en Child
             Bind<MyJobProcessor>().ToSelf().Named("MyJobProcessor");
             //Bind(typeof(IRepository<>)).To(typeof(GenericRepository<>)).WhenAnyAncestorNamed("MyJobProcessor");
             //
-
             Bind<IProductService>().To<ProductService>();
-
             //COMMANDS
             Bind<ICommandBus>().To<DefaultCommandBus>();
-
             Bind<ICommandHandler<CreateOrUpdateCategoryCommand>>().To<CreateOrUpdateCategoryHandler>();
-
             Bind<IValidationHandler<CreateOrUpdateCategoryCommand>>().To<CreateOrUpdateCategoryValidationHandler>();
-
             //EVENTS
             //Bind<IEventDispatcher>().To<DefaultEventBus>();
-            Bind<IDomainHandler<EndOfSurvey>>().To<EndOfSurveyHandler>();
+            //Bind<IDomainHandler<EndOfSurvey>>().To<EndOfSurveyHandler>();
         }
     }
 }

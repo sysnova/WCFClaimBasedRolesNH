@@ -18,21 +18,22 @@ namespace sysnova.Infrastructure.Security
 {
     public class MyServiceAuthorizationManager : ServiceAuthorizationManager
     {
-        IProductService _serviceCategory;
-        private static readonly object _padlock = new object();
-
+        //IProductService _serviceCategory;
+        //private static readonly object _padlock = new object();
+        IKernel _kernel;
 
         public MyServiceAuthorizationManager(IKernel kernel)//(IProductService serviceCategory)
         {
             //_serviceCategory = serviceCategory;
-            _serviceCategory = (IProductService)kernel.Get(typeof(IProductService));
-
+            _kernel = kernel;
         }
 
         protected override bool CheckAccessCore(OperationContext operationContext)
         {
-            lock (_padlock)
-            {
+            IProductService _serviceCategory = (IProductService)_kernel.Get(typeof(IProductService));
+
+            //lock (_padlock)
+            //{
                 //Accedo al Repo dentro del ServiceAuthManager
                 IEnumerable<Category> result = _serviceCategory.GetCategories(3);
 
@@ -59,7 +60,7 @@ namespace sysnova.Infrastructure.Security
                 //    .Properties[HttpRequestMessageProperty.Name];
                 //var token = requestProperty.Headers["X-MyCustomHeader"];
                 return true;
-            }
+            //}
             
             // Iterate through the various claim sets in the AuthorizationContext.
             /*

@@ -8,6 +8,6 @@ namespace sysnova.Infrastructure.Interfaces
 {
     public interface ICommandResult
     {
-        bool Success { get; }
+        string[] Success { get; }
     }
 }
